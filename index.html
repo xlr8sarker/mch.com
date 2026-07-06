@@ -542,6 +542,68 @@ nav.main-nav a:hover::after, nav.main-nav a.active::after{width:100%;}
   width:fit-content;
 }
 .doctor-card .btn{margin-top:18px;}
+.doctor-card button.btn{cursor:pointer;font-family:inherit;}
+
+/* ============ BOOKING MODAL ============ */
+.booking-overlay{
+  position:fixed;inset:0;
+  background:rgba(15,23,42,0.55);
+  backdrop-filter:blur(2px);
+  display:none;
+  align-items:center;justify-content:center;
+  z-index:1000;
+  padding:20px;
+}
+.booking-overlay.open{display:flex;}
+.booking-modal{
+  background:#fff;
+  border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-lg);
+  width:100%;max-width:420px;
+  padding:32px 28px 28px;
+  position:relative;
+  animation:bookingIn .18s ease;
+}
+@keyframes bookingIn{from{opacity:0;transform:translateY(8px) scale(.98);}to{opacity:1;transform:translateY(0) scale(1);}}
+.booking-close{
+  position:absolute;top:16px;right:16px;
+  width:32px;height:32px;
+  border:none;background:var(--surface);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;color:var(--ink-soft);
+  transition:background .15s;
+}
+.booking-close:hover{background:var(--line);}
+.booking-close svg{width:16px;height:16px;}
+.booking-modal .eyebrow{margin-bottom:10px;}
+.booking-modal h3{font-size:20px;font-weight:700;letter-spacing:-0.01em;margin-bottom:4px;}
+.booking-doctor-name{color:var(--green-dark);font-weight:600;}
+.booking-modal p.sub{color:var(--ink-soft);font-size:14px;margin-bottom:22px;}
+.booking-field{margin-bottom:16px;}
+.booking-field label{
+  display:block;font-size:13.5px;font-weight:600;color:var(--ink);margin-bottom:6px;
+}
+.booking-field input{
+  width:100%;
+  border:1.5px solid var(--line);
+  border-radius:10px;
+  padding:12px 14px;
+  font-size:15px;
+  font-family:inherit;
+  color:var(--ink);
+  outline:none;
+  transition:border-color .15s;
+}
+.booking-field input:focus{border-color:var(--green);}
+.booking-submit{width:100%;justify-content:center;margin-top:6px;}
+.booking-status{
+  margin-top:14px;font-size:13.5px;text-align:center;
+  min-height:18px;
+}
+.booking-status.error{color:#DC2626;}
+.booking-status.success{color:var(--green-dark);font-weight:600;}
+.booking-submit[disabled]{opacity:.6;cursor:not-allowed;}
 .no-results{
   text-align:center;
   padding:60px 20px;
@@ -1101,10 +1163,10 @@ table{display:block;max-width:100%;overflow-x:auto;}
           <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M6 21V7l6-4 6 4v14M9 9h1m4 0h1M9 13h1m4 0h1M9 17h1m4 0h1"/></svg><span class="qual">Shaheed Suhrawardy Medical College Hospital, Dhaka</span></div>
           <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span class="qual">Friday: 10:00 AM – 8:00 PM &middot; Monday: 1:00 PM – 8:00 PM</span></div>
         </div>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdr1snCeNqShMneFlXrbriBrkyDa8CV_GjpHsS4z-61O7HFkA/viewform?usp=publish-editor" target="_blank" rel="noopener" class="btn btn-primary btn-block">
+        <button type="button" class="btn btn-primary btn-block" onclick="openBooking(this)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
           Book Appointment
-        </a>
+        </button>
       </div>
       <div class="doctor-card reveal" data-name="Dr. Fazlul Quader (Makhon)" data-dept="Cardiology">
         <div class="doctor-avatar">FQ</div>
@@ -1117,10 +1179,10 @@ table{display:block;max-width:100%;overflow-x:auto;}
           <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M6 21V7l6-4 6 4v14M9 9h1m4 0h1M9 13h1m4 0h1M9 17h1m4 0h1"/></svg><span class="qual">Narsingdi Sadar Hospital</span></div>
           <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span class="qual">Saturday: 3:00 PM – 7:00 PM</span></div>
         </div>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSegx9E_5TdmsXTpIs92IxHFKFKYxjXfc2Vyt1c9qSwjlTonPA/viewform?usp=publish-editor" target="_blank" rel="noopener" class="btn btn-primary btn-block">
+        <button type="button" class="btn btn-primary btn-block" onclick="openBooking(this)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
           Book Appointment
-        </a>
+        </button>
       </div>
       <div class="doctor-card reveal" data-name="Dr. Mofazzal Hossain Tafsir" data-dept="ENT">
         <div class="doctor-avatar">MH</div>
@@ -1133,10 +1195,10 @@ table{display:block;max-width:100%;overflow-x:auto;}
           <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M6 21V7l6-4 6 4v14M9 9h1m4 0h1M9 13h1m4 0h1M9 17h1m4 0h1"/></svg><span class="qual">M.H. Samorita Hospital &amp; Medical College &middot; BMDC Reg: A-72789</span></div>
           <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span class="qual">Monday: 2:00 PM – 8:00 PM</span></div>
         </div>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeKXMdDyJpOWJ3jmLTrL5SvZyo6ZdHf9PVWtt3QWWH4NIq9wg/viewform?usp=publish-editor" target="_blank" rel="noopener" class="btn btn-primary btn-block">
+        <button type="button" class="btn btn-primary btn-block" onclick="openBooking(this)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
           Book Appointment
-        </a>
+        </button>
       </div>
       <div class="doctor-card reveal" data-name="Dr. Laila Afroz (Rita)" data-dept="Dermatology">
         <div class="doctor-avatar">LA</div>
@@ -1148,10 +1210,10 @@ table{display:block;max-width:100%;overflow-x:auto;}
           <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M6 21V7l6-4 6 4v14M9 9h1m4 0h1M9 13h1m4 0h1M9 17h1m4 0h1"/></svg><span class="qual">Assistant Professor &middot; Hair, Laser &amp; Cosmetic Dermatology Surgeon</span></div>
           <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span class="qual">Friday: 2:00 PM – 8:00 PM</span></div>
         </div>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSf0fl1QmNQksrRW8FGoR_SqVdRLsmlxsM3skf6lFYud5tJeNw/viewform?usp=publish-editor" target="_blank" rel="noopener" class="btn btn-primary btn-block">
+        <button type="button" class="btn btn-primary btn-block" onclick="openBooking(this)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
           Book Appointment
-        </a>
+        </button>
       </div>
       <div class="doctor-card reveal" data-name="Dr. Syed Amjad Ali" data-dept="Neurosurgery">
         <div class="doctor-avatar">SA</div>
@@ -1163,10 +1225,10 @@ table{display:block;max-width:100%;overflow-x:auto;}
           <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M6 21V7l6-4 6 4v14M9 9h1m4 0h1M9 13h1m4 0h1M9 17h1m4 0h1"/></svg><span class="qual">Special Training: Pain Management, Stroke Treatment, Nerve Disorders</span></div>
           <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span class="qual">Wednesday: 3:00 PM – 7:00 PM</span></div>
         </div>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfYYgm0yoaKXdtwVDNju3vQw9-LAWe0hvL82qpqJG7A1FYa-w/viewform?usp=publish-editor" target="_blank" rel="noopener" class="btn btn-primary btn-block">
+        <button type="button" class="btn btn-primary btn-block" onclick="openBooking(this)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
           Book Appointment
-        </a>
+        </button>
       </div>
       <div class="doctor-card reveal" data-name="Dr. Shamim Ahmed" data-dept="Pediatrics">
         <div class="doctor-avatar">SA</div>
@@ -1177,10 +1239,10 @@ table{display:block;max-width:100%;overflow-x:auto;}
           <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 0-4 4v2a4 4 0 0 0 8 0V6a4 4 0 0 0-4-4Z"/><path d="M5 10v1a7 7 0 0 0 14 0v-1M12 18v4M8 22h8"/></svg><span class="qual">MBBS, BCS (Health), SCHP (Australia), MPH, CCD</span></div>
           <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span class="qual">Friday: 10:00 AM – 7:00 PM &middot; Monday: 1:00 PM – 8:00 PM</span></div>
         </div>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSf08_9W1gH7eabt4vBPdTwm7vUSq3rWgEPYcNP4lp3t5GjdFw/viewform?usp=publish-editor" target="_blank" rel="noopener" class="btn btn-primary btn-block">
+        <button type="button" class="btn btn-primary btn-block" onclick="openBooking(this)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
           Book Appointment
-        </a>
+        </button>
       </div>
       <div class="doctor-card reveal" data-name="Dr. Laila Akhter" data-dept="Gynecology">
         <div class="doctor-avatar">LA</div>
@@ -1192,10 +1254,10 @@ table{display:block;max-width:100%;overflow-x:auto;}
           <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M6 21V7l6-4 6 4v14M9 9h1m4 0h1M9 13h1m4 0h1M9 17h1m4 0h1"/></svg><span class="qual">Dhaka Medical College Hospital</span></div>
           <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span class="qual">Saturday: 2:00 PM – 8:00 PM</span></div>
         </div>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLScgWpm9BZ0vipPn4f64YkefEVKVTqo4Y2LQ6AC64N3xiedAgw/viewform?usp=publish-editor" target="_blank" rel="noopener" class="btn btn-primary btn-block">
+        <button type="button" class="btn btn-primary btn-block" onclick="openBooking(this)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
           Book Appointment
-        </a>
+        </button>
       </div>
       <div class="doctor-card reveal" data-name="Dr. Rumnaz Akhand" data-dept="Gynecology">
         <div class="doctor-avatar">RA</div>
@@ -1207,10 +1269,10 @@ table{display:block;max-width:100%;overflow-x:auto;}
           <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M6 21V7l6-4 6 4v14M9 9h1m4 0h1M9 13h1m4 0h1M9 17h1m4 0h1"/></svg><span class="qual">Dhaka Medical College Hospital</span></div>
           <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span class="qual">Monday: 2:00 PM – 8:00 PM</span></div>
         </div>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdZW3YQzO2pvwjdf1AJ6tx-TDzizxdqL7AaAPSlnX-ThLp0BA/viewform?usp=publish-editor" target="_blank" rel="noopener" class="btn btn-primary btn-block">
+        <button type="button" class="btn btn-primary btn-block" onclick="openBooking(this)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
           Book Appointment
-        </a>
+        </button>
       </div>
       <div class="doctor-card reveal" data-name="Dr. Minara Akhter" data-dept="Gynecology">
         <div class="doctor-avatar">MA</div>
@@ -1222,10 +1284,10 @@ table{display:block;max-width:100%;overflow-x:auto;}
           <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M6 21V7l6-4 6 4v14M9 9h1m4 0h1M9 13h1m4 0h1M9 17h1m4 0h1"/></svg><span class="qual">Dhaka Medical College, Dhaka</span></div>
           <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span class="qual">Friday 10AM–8PM &middot; Sunday &amp; Wednesday 3PM–8PM</span></div>
         </div>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdxXBPd5NmORh_FFzhFJ-LCqMdUMBBbmTOrjuWppM_SRmtJiQ/viewform?usp=publish-editor" target="_blank" rel="noopener" class="btn btn-primary btn-block">
+        <button type="button" class="btn btn-primary btn-block" onclick="openBooking(this)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
           Book Appointment
-        </a>
+        </button>
       </div>
       <div class="doctor-card reveal" data-name="Dr. Md. Asaduzzaman" data-dept="Orthopedic">
         <div class="doctor-avatar">MA</div>
@@ -1237,10 +1299,10 @@ table{display:block;max-width:100%;overflow-x:auto;}
           <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M6 21V7l6-4 6 4v14M9 9h1m4 0h1M9 13h1m4 0h1M9 17h1m4 0h1"/></svg><span class="qual">National Institute of Traumatology &amp; Orthopedic Rehabilitation (NITOR)</span></div>
           <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span class="qual">Friday: 5:00 PM – 8:00 PM</span></div>
         </div>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdPwey2fguWy7fD-dAv6NaJ_C29-mWbxlHrywmFeO6YhcR_Ww/viewform?usp=publish-editor" target="_blank" rel="noopener" class="btn btn-primary btn-block">
+        <button type="button" class="btn btn-primary btn-block" onclick="openBooking(this)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
           Book Appointment
-        </a>
+        </button>
       </div>
       <div class="doctor-card reveal" data-name="Dr. Musarrat Zerin" data-dept="Gynecology">
         <div class="doctor-avatar">MZ</div>
@@ -1252,10 +1314,10 @@ table{display:block;max-width:100%;overflow-x:auto;}
           <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M6 21V7l6-4 6 4v14M9 9h1m4 0h1M9 13h1m4 0h1M9 17h1m4 0h1"/></svg><span class="qual">Laparoscopic &amp; Hysteroscopic Surgeon</span></div>
           <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span class="qual">Tuesday: 2:00 PM – 7:00 PM</span></div>
         </div>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfSFsrADo20INtZP32CV2DiFIYohXNAaN6f44B4NcPSPU2SmQ/viewform?usp=publish-editor" target="_blank" rel="noopener" class="btn btn-primary btn-block">
+        <button type="button" class="btn btn-primary btn-block" onclick="openBooking(this)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
           Book Appointment
-        </a>
+        </button>
       </div>
       <div class="doctor-card reveal" data-name="Dr. Suman Kumar Nath" data-dept="Diabetes Care">
         <div class="doctor-avatar">SK</div>
@@ -1267,10 +1329,10 @@ table{display:block;max-width:100%;overflow-x:auto;}
           <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M6 21V7l6-4 6 4v14M9 9h1m4 0h1M9 13h1m4 0h1M9 17h1m4 0h1"/></svg><span class="qual">Former Assistant Registrar, Institute of Child &amp; Mother Health (ICMH)</span></div>
           <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span class="qual">Daily: 8:00 AM – 10:00 PM</span></div>
         </div>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSekSIZfHl_ruhB1a24muu-Lm-QQBmnzYvvyt8cyqk2q-aQFIQ/viewform?usp=publish-editor" target="_blank" rel="noopener" class="btn btn-primary btn-block">
+        <button type="button" class="btn btn-primary btn-block" onclick="openBooking(this)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
           Book Appointment
-        </a>
+        </button>
       </div>
       <div class="doctor-card reveal" data-name="Dr. Md. Saddam Hossain (Esham)" data-dept="Orthopedic">
         <div class="doctor-avatar">MS</div>
@@ -1282,10 +1344,10 @@ table{display:block;max-width:100%;overflow-x:auto;}
           <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M6 21V7l6-4 6 4v14M9 9h1m4 0h1M9 13h1m4 0h1M9 17h1m4 0h1"/></svg><span class="qual">District Sadar Hospital, Narsingdi &middot; BMDC Reg: A 74527</span></div>
           <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span class="qual">Monday: 3:00 PM – 8:00 PM</span></div>
         </div>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSenkR8vetBdyitv2xlo0Ew9Uv5D66kbkrY8lICzLsEX9uZFCA/viewform?usp=header" target="_blank" rel="noopener" class="btn btn-primary btn-block">
+        <button type="button" class="btn btn-primary btn-block" onclick="openBooking(this)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
           Book Appointment
-        </a>
+        </button>
       </div>
     </div>
     <div class="no-results" id="noResults">
@@ -1622,6 +1684,30 @@ table{display:block;max-width:100%;overflow-x:auto;}
   </a>
 </div>
 
+<!-- ============ BOOKING MODAL ============ -->
+<div class="booking-overlay" id="bookingOverlay">
+  <div class="booking-modal">
+    <button type="button" class="booking-close" id="bookingClose" aria-label="Close booking form">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <span class="eyebrow">Book Appointment</span>
+    <h3>Requesting <span class="booking-doctor-name" id="bookingDoctorName">—</span></h3>
+    <p class="sub">Share your name and number — our front desk will call you to confirm a time.</p>
+    <form id="bookingForm">
+      <div class="booking-field">
+        <label for="bookingName">Your Name</label>
+        <input type="text" id="bookingName" name="name" placeholder="e.g. Abdul Karim" autocomplete="name" required>
+      </div>
+      <div class="booking-field">
+        <label for="bookingPhone">Phone Number</label>
+        <input type="tel" id="bookingPhone" name="phone" placeholder="e.g. 01XXXXXXXXX" autocomplete="tel" required>
+      </div>
+      <button type="submit" class="btn btn-primary booking-submit" id="bookingSubmitBtn">Submit Request</button>
+      <p class="booking-status" id="bookingStatus"></p>
+    </form>
+  </div>
+</div>
+
 <script>
 // Mobile drawer
 const menuToggle = document.getElementById('menuToggle');
@@ -1688,6 +1774,85 @@ const navObserver = new IntersectionObserver((entries) => {
   });
 }, { rootMargin: '-40% 0px -50% 0px' });
 sections.forEach(s => navObserver.observe(s));
+
+// ============ BOOKING MODAL ============
+// Emails are delivered via Web3Forms (free, no backend needed) to shiddantasarker86@gmail.com
+// IMPORTANT: replace the value below with your own Access Key from https://web3forms.com
+const WEB3FORMS_ACCESS_KEY = "PASTE_YOUR_WEB3FORMS_ACCESS_KEY_HERE";
+
+const bookingOverlay = document.getElementById('bookingOverlay');
+const bookingDoctorName = document.getElementById('bookingDoctorName');
+const bookingForm = document.getElementById('bookingForm');
+const bookingNameInput = document.getElementById('bookingName');
+const bookingPhoneInput = document.getElementById('bookingPhone');
+const bookingSubmitBtn = document.getElementById('bookingSubmitBtn');
+const bookingStatus = document.getElementById('bookingStatus');
+const bookingClose = document.getElementById('bookingClose');
+let currentDoctor = '';
+
+function openBooking(btn){
+  const card = btn.closest('.doctor-card');
+  currentDoctor = card ? card.getAttribute('data-name') : '';
+  bookingDoctorName.textContent = currentDoctor || 'the doctor';
+  bookingStatus.textContent = '';
+  bookingStatus.className = 'booking-status';
+  bookingForm.reset();
+  bookingSubmitBtn.disabled = false;
+  bookingSubmitBtn.textContent = 'Submit Request';
+  bookingOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => bookingNameInput.focus(), 100);
+}
+
+function closeBooking(){
+  bookingOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+bookingClose.addEventListener('click', closeBooking);
+bookingOverlay.addEventListener('click', (e) => { if(e.target === bookingOverlay) closeBooking(); });
+document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && bookingOverlay.classList.contains('open')) closeBooking(); });
+
+bookingForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const name = bookingNameInput.value.trim();
+  const phone = bookingPhoneInput.value.trim();
+  if(!name || !phone){ return; }
+
+  bookingSubmitBtn.disabled = true;
+  bookingSubmitBtn.textContent = 'Sending...';
+  bookingStatus.textContent = '';
+  bookingStatus.className = 'booking-status';
+
+  try{
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        access_key: WEB3FORMS_ACCESS_KEY,
+        subject: `New Appointment Request — ${currentDoctor}`,
+        from_name: 'Madhabdi City Hospital Website',
+        doctor: currentDoctor,
+        name: name,
+        phone: phone
+      })
+    });
+    const data = await res.json();
+    if(data.success){
+      bookingStatus.textContent = 'Request sent! Our front desk will call you shortly.';
+      bookingStatus.className = 'booking-status success';
+      bookingSubmitBtn.textContent = 'Sent ✓';
+      setTimeout(closeBooking, 2200);
+    } else {
+      throw new Error(data.message || 'Failed to send');
+    }
+  } catch(err){
+    bookingStatus.textContent = 'Could not send request. Please call us instead.';
+    bookingStatus.className = 'booking-status error';
+    bookingSubmitBtn.disabled = false;
+    bookingSubmitBtn.textContent = 'Submit Request';
+  }
+});
 </script>
 
 </body>
