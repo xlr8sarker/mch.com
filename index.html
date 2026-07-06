@@ -1776,9 +1776,9 @@ const navObserver = new IntersectionObserver((entries) => {
 sections.forEach(s => navObserver.observe(s));
 
 // ============ BOOKING MODAL ============
-// Emails are delivered via Web3Forms (free, no backend needed) to shiddantasarker86@gmail.com
-// IMPORTANT: replace the value below with your own Access Key from https://web3forms.com
-const WEB3FORMS_ACCESS_KEY = "PASTE_YOUR_WEB3FORMS_ACCESS_KEY_HERE";
+// Appointment requests are sent straight to shiddantasarker86@gmail.com
+// via the visitor's own email app (mailto) — no third-party service or key needed.
+const HOSPITAL_EMAIL = "shiddantasarker86@gmail.com";
 
 const bookingOverlay = document.getElementById('bookingOverlay');
 const bookingDoctorName = document.getElementById('bookingDoctorName');
@@ -1813,45 +1813,31 @@ bookingClose.addEventListener('click', closeBooking);
 bookingOverlay.addEventListener('click', (e) => { if(e.target === bookingOverlay) closeBooking(); });
 document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && bookingOverlay.classList.contains('open')) closeBooking(); });
 
-bookingForm.addEventListener('submit', async (e) => {
+bookingForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const name = bookingNameInput.value.trim();
   const phone = bookingPhoneInput.value.trim();
   if(!name || !phone){ return; }
 
-  bookingSubmitBtn.disabled = true;
-  bookingSubmitBtn.textContent = 'Sending...';
-  bookingStatus.textContent = '';
-  bookingStatus.className = 'booking-status';
+  const subject = `New Appointment Request — ${currentDoctor}`;
+  const body =
+    `Doctor: ${currentDoctor}\n` +
+    `Patient Name: ${name}\n` +
+    `Phone Number: ${phone}`;
 
-  try{
-    const res = await fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({
-        access_key: WEB3FORMS_ACCESS_KEY,
-        subject: `New Appointment Request — ${currentDoctor}`,
-        from_name: 'Madhabdi City Hospital Website',
-        doctor: currentDoctor,
-        name: name,
-        phone: phone
-      })
-    });
-    const data = await res.json();
-    if(data.success){
-      bookingStatus.textContent = 'Request sent! Our front desk will call you shortly.';
-      bookingStatus.className = 'booking-status success';
-      bookingSubmitBtn.textContent = 'Sent ✓';
-      setTimeout(closeBooking, 2200);
-    } else {
-      throw new Error(data.message || 'Failed to send');
-    }
-  } catch(err){
-    bookingStatus.textContent = 'Could not send request. Please call us instead.';
-    bookingStatus.className = 'booking-status error';
+  const mailtoLink = `mailto:${HOSPITAL_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+  bookingSubmitBtn.disabled = true;
+  bookingSubmitBtn.textContent = 'Opening email app...';
+  bookingStatus.textContent = 'Your email app should open now — just tap Send to confirm your request.';
+  bookingStatus.className = 'booking-status success';
+
+  window.location.href = mailtoLink;
+
+  setTimeout(() => {
     bookingSubmitBtn.disabled = false;
     bookingSubmitBtn.textContent = 'Submit Request';
-  }
+  }, 1500);
 });
 </script>
 
